@@ -21,6 +21,10 @@ class Window():
     def redraw(self):
         self.__root.update_idletasks()
         self.__root.update()
+        
+    #draw line method to draw line btween 2 point
+    def draw_line(self,line,fill_color="black"):
+        line.draw(self.__canvas,fill_color)
     
     #track the"Running" state of window to True, set to False earlier by default, then call redraw() method in a while loop to keep visuals rendered    
     def wait_for_close(self):
@@ -31,3 +35,18 @@ class Window():
     #close method, set running to False
     def close(self):
         self.__running=False
+        
+class Point():
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+        
+class Line():
+    def __init__(self,point1,point2):
+        self.point1 = point1
+        self.point2 = point2
+    
+    def draw(self,canvas,fill_color="black"):
+        canvas.create_line(self.point1.x,self.point1.y,self.point2.x,self.point2.y, fill=fill_color,width=2)
+        
+    
