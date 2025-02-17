@@ -23,7 +23,7 @@ class Window():
         self.__root.update()
         
     #draw line method to draw line btween 2 point
-    def draw_line(self,line,fill_color="black"):
+    def draw_line(self,line,fill_color="yellow"):
         line.draw(self.__canvas,fill_color)
     
     #track the"Running" state of window to True, set to False earlier by default, then call redraw() method in a while loop to keep visuals rendered    
@@ -46,7 +46,64 @@ class Line():
         self.point1 = point1
         self.point2 = point2
     
-    def draw(self,canvas,fill_color="black"):
+    def draw(self,canvas,fill_color="yellow"):
         canvas.create_line(self.point1.x,self.point1.y,self.point2.x,self.point2.y, fill=fill_color,width=2)
         
-    
+
+class Cell():
+    def __init__(self,win=None):
+        self.has_left_wall = True
+        self.has_right_wall = True
+        self.has_top_wall = True
+        self.has_bottom_wall = True
+        
+        self._x1 = None
+        self._x2 = None
+        self._y1 = None
+        self._y2 = None
+        
+        self._win = win
+        
+    def draw(self,x1,y1,x2,y2):
+        self._x1 = x1
+        self._x2 = x2
+        self._y1 = y1
+        self._y2 = y2
+        
+        if self._win is None:
+            return
+        
+        if self.has_left_wall:
+            line = Line(Point(x1,y1),Point(x1,y2))
+            self._win.draw_line(line)
+            # If the wall doesn't exist, draw a background-colored line to "erase" it
+        else:
+            line = Line(Point(x1,y1),Point(x1,y2))
+            self._win.draw_line(line,"black")
+            
+         
+        if self.has_right_wall:
+            line = Line(Point(x2,y1),Point(x2,y2))
+            self._win.draw_line(line)
+            # If the wall doesn't exist, draw a background-colored line to "erase" it
+        else:
+            line = Line(Point(x2,y1),Point(x2,y2))
+            self._win.draw_line(line,"black")
+            
+         
+        if self.has_top_wall:
+            line = Line(Point(x1,y1),Point(x2,y1))
+            self._win.draw_line(line)
+            # If the wall doesn't exist, draw a background-colored line to "erase" it
+        else:
+            line = Line(Point(x1,y1),Point(x2,y1))
+            self._win.draw_line(line,"black")
+            
+         
+        if self.has_bottom_wall:
+            line = Line(Point(x1,y2),Point(x2,y2))
+            self._win.draw_line(line)
+            # If the wall doesn't exist, draw a background-colored line to "erase" it
+        else:
+            line = Line(Point(x1,y2),Point(x2,y2))
+            self._win.draw_line(line,"black")

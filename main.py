@@ -3,11 +3,15 @@ from classes import *
 def main():
     win = Window(800,600)
     
-    point1 =Point(100,100)
-    point2 =Point(700,500)
+    cell1 = Cell(win)
     
-    line = Line(point1,point2)
-    win.draw_line(line,"yellow")
+    cell1.draw(100,100,200,200)
+    cell2 = Cell(win)
+    cell2.draw(100,200,200,300)
+    
+
+    
+
     
     
     win.wait_for_close()
